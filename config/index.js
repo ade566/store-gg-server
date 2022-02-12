@@ -3,6 +3,6 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports = {
-  serviceName : process.SERVICE_NAME,
-  urlDB : process.MONGO_URL,
+  serviceName : process.env.SERVICE_NAME,
+  urlDB : process.env.MONGO_URL,
 }

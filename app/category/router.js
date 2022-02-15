@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { index, create, _create } = require('./controller')
+const { index, create, _create, edit, _edit } = require('./controller')
 
 router.get('/', index);
 router.get('/create', create);
 router.post('/_create', _create);
+router.get('/edit/:id', edit);
+router.put('/_edit/:id', _edit);
 
 module.exports = router;

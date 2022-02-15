@@ -3,7 +3,10 @@ const Category = require('./model')
 module.exports = {
   index: async (req, res) => {
     try {
-      res.render('admin/category/index')
+      const category = await Category.find()
+      res.render('admin/category/index', {
+        category
+      })
     } catch (error) {
       console.log(error);
     }

@@ -52,4 +52,14 @@ module.exports = {
       console.log(error);
     }
   },
+  _delete : async(req, res) => {
+    try {
+      const {id} = req.params
+      const category = await Category.findByIdAndRemove({_id: id})
+
+      res.redirect('/category')
+    } catch (error) {
+      console.log(error);
+    }
+  },
 }

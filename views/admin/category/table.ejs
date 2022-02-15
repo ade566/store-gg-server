@@ -12,7 +12,7 @@
         <td><%= i + 1 %></td>
         <td><%= e.name %> </td>
         <td>
-          <form action="">
+          <form action="/category/delete/<%= e._id %>?_method=DELETE" method="post">
             <a href="/category/edit/<%= e._id %>" class="btn btn-sm btn-warning">
               <i class="fas fa-pencil-alt"></i>
               Ubah

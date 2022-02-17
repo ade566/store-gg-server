@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 
 var dashboardRouter = require('./app/dashboard/router');
 var categoryRouter = require('./app/category/router');
+var nominalRouter = require('./app/nominal/router');
 var app = express();
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lt
 
 app.use('/', dashboardRouter);
 app.use('/category', categoryRouter);
+app.use('/nominal', nominalRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

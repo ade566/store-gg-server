@@ -72,17 +72,17 @@ module.exports = {
       res.redirect('/nominal')
     }
   },
-  // _delete : async(req, res) => {
-  //   try {
-  //     const {id} = req.params
-  //     const category = await Category.findByIdAndRemove({_id: id})
-  //     req.flash('alertMessage', 'Berhasil hapus kategori')
-  //     req.flash('alertStatus', 'success')
-  //     res.redirect('/category')
-  //   } catch (error) {
-  //     req.flash("alertMessage", `${error.message}`)
-  //     req.flash("alertStatus", "danger")
-  //     res.redirect('/category')
-  //   }
-  // },
+  _delete : async(req, res) => {
+    try {
+      const {id} = req.params
+      const nominal = await Nominal.findByIdAndRemove({_id: id})
+      req.flash('alertMessage', 'Berhasil hapus kategori')
+      req.flash('alertStatus', 'success')
+      res.redirect('/nominal')
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`)
+      req.flash("alertStatus", "danger")
+      res.redirect('/nominal')
+    }
+  },
 }

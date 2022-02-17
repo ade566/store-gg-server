@@ -8,6 +8,7 @@ module.exports = {
 
       const alert = {message: alertMessage, status: alertStatus}
       const nominal = await Nominal.find()
+      console.log(nominal);
       res.render('admin/nominal/index', {
         nominal,
         alert

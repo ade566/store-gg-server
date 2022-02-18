@@ -12,7 +12,8 @@ module.exports = {
       const alertStatus = req.flash("alertStatus")
 
       const alert = {message: alertMessage, status: alertStatus}
-      const data = await Voucher.find()
+      const data = await Voucher.find().populate('category').populate('nominals')
+      console.log(data);
       res.render('admin/voucher/index', {
         data,
         alert

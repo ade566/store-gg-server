@@ -1,0 +1,55 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>No</th>
+    <th>Nama Game</th>
+    <th>Kategori Game</th>
+    <th>Nominal</th>
+    <th>Status</th>
+    <th>Aksi</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% data.forEach((e, i) => { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= e.name %> </td>
+        <td><%= e.category?.name ?? '-' %> </td>
+        <td>
+          <% e.nominals.forEach(nominal => { %>
+           <span class="badge badge-warning"><%= nominal.coinQuantity %> koin <%= nominal.coinName %></span>
+          <% }) %>
+        </td>
+        <td>
+          <% if (e.status === 'Y') { %>
+            <span class="badge badge-success">Aktif</span>
+          <% } else { %>
+            <span class="badge badge-success">Non aktif</span>
+          <% } %>
+        </td>
+        <td>
+          <form action="/voucher/status/<%= e._id %>?_method=PUT" method="post" style="display: inline-block;">
+            <button href="" class="btn btn-sm btn-primary">
+              <i class="fas fa-folder"></i>
+              <% if (e.status === 'Y') { %>
+                Matikan
+              <% } else { %>
+                Hidupkan
+              <% } %>
+            </button>
+          </form>
+          <a href="/voucher/edit/<%= e._id %>" class="btn btn-sm btn-warning">
+            <i class="fas fa-pencil-alt"></i>
+            Ubah
+          </a>
+          <form action="/voucher/delete/<%= e._id %>?_method=DELETE" method="post" style="display: inline-block;">
+            <button href="" class="btn btn-sm btn-danger">
+              <i class="fas fa-trash"></i>
+              Hapus
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

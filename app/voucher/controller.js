@@ -86,33 +86,77 @@ module.exports = {
       res.redirect('/voucher')
     }
   },
-  // edit: async (req, res) => {
-  //   try {
-  //     const {id} = req.params
-  //     const nominal = await Nominal.findOne({_id: id})
-  //     res.render('admin/nominal/edit', {
-  //       e: nominal
-  //     })
-  //   } catch (error) {
-  //     req.flash("alertMessage", `${error.message}`)
-  //     req.flash("alertStatus", "danger")
-  //     res.redirect('/nominal')
-  //   }
-  // },
-  // _edit : async(req, res) => {
-  //   try {
-  //     const {coinName, coinQuantity, price} = req.body
-  //     const {id} = req.params
-  //     const nominal = await Nominal.findOneAndUpdate({_id: id}, {coinName, coinQuantity, price})
-  //     req.flash('alertMessage', 'Berhasil edit kategori')
-  //     req.flash('alertStatus', 'success')
-  //     res.redirect('/nominal')
-  //   } catch (error) {
-  //     req.flash("alertMessage", `${error.message}`)
-  //     req.flash("alertStatus", "danger")
-  //     res.redirect('/nominal')
-  //   }
-  // },
+  edit: async (req, res) => {
+    try {
+      const {id} = req.params
+      const data = await Voucher.findOne({_id: id})
+      const category = await Category.find()
+      const nominal = await Nominal.find()
+      res.render('admin/voucher/edit', {
+        data, category, nominal
+      })
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`)
+      req.flash("alertStatus", "danger")
+      res.redirect('/voucher')
+    }
+  },
+  _edit : async(req, res) => {
+    try {
+      const {id} = req.params
+      const {name, category, nominals} = req.body
+
+      if (req.file) {
+        let tmp_path = req.file.path
+        let originalExt = req.file.originalname.split('.')[req.file.originalname.split('.').length - 1]
+        let filename = req.file.filename + '.' + originalExt
+        let target_path = path.resolve(config.rootPath, `public/uploads/${filename}`)
+
+        const src = fs.createReadStream(tmp_path)
+        const dest = fs.createWriteStream(target_path)
+
+        src.pipe(dest)
+        src.on('end', async () => {
+          try {
+            const voucher = await Voucher.findOne({_id: id})
+
+            let currentImage = `${config.rootPath}/public/uploads/${voucher.thumbnail}`
+            if (fs.existsSync(currentImage)) {
+              fs.unlinkSync(currentImage)
+            }
+
+            await Voucher.findOneAndUpdate({
+              _id: id
+            }, {
+              name, category, nominals,
+              thumbnail: filename
+            })
+
+            req.flash('alertMessage', 'Berhasil ubah voucher')
+            req.flash('alertStatus', 'success')
+            res.redirect('/voucher')
+          } catch (error) {
+            
+          }
+        })
+      }else{
+        await Voucher.findOneAndUpdate({
+          _id: id
+        }, {
+          name, category, nominals
+        })
+  
+        req.flash('alertMessage', 'Berhasil ubah voucher')
+        req.flash('alertStatus', 'success')
+  
+        res.redirect('/voucher')
+      }
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`)
+      req.flash("alertStatus", "danger")
+      res.redirect('/voucher')
+    }
+  },
   // _delete : async(req, res) => {
   //   try {
   //     const {id} = req.params

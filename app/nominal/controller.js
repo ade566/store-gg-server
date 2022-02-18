@@ -63,7 +63,7 @@ module.exports = {
       const {coinName, coinQuantity, price} = req.body
       const {id} = req.params
       const nominal = await Nominal.findOneAndUpdate({_id: id}, {coinName, coinQuantity, price})
-      req.flash('alertMessage', 'Berhasil edit kategori')
+      req.flash('alertMessage', 'Berhasil edit nominal')
       req.flash('alertStatus', 'success')
       res.redirect('/nominal')
     } catch (error) {
@@ -76,7 +76,7 @@ module.exports = {
     try {
       const {id} = req.params
       const nominal = await Nominal.findByIdAndRemove({_id: id})
-      req.flash('alertMessage', 'Berhasil hapus kategori')
+      req.flash('alertMessage', 'Berhasil hapus nominal')
       req.flash('alertStatus', 'success')
       res.redirect('/nominal')
     } catch (error) {

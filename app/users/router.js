@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const { index } = require('./controller')
+const { signin, _signin } = require('./controller')
 
-router.get('/', index);
+router.get('/', signin);
+router.post('/_signin', _signin);
 
 module.exports = router;

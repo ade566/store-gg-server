@@ -57,5 +57,9 @@ module.exports = {
       req.flash("alertStatus", "danger")
       res.redirect('/')
     }
+  }, 
+  signout: (req, res) => {
+    req.session.destroy()
+    res.redirect('/')
   }
 }

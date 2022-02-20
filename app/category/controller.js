@@ -10,7 +10,9 @@ module.exports = {
       const category = await Category.find()
       res.render('admin/category/index', {
         category,
-        alert
+        alert,
+        name: req.session.user.name,
+        title: 'Kategori'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -20,7 +22,10 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      res.render('admin/category/create')
+      res.render('admin/category/create', {
+        name: req.session.user.name,
+        title: 'Tambah Kategori'
+      })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
       req.flash("alertStatus", "danger")
@@ -49,7 +54,9 @@ module.exports = {
       const {id} = req.params
       const category = await Category.findOne({_id: id})
       res.render('admin/category/edit', {
-        category
+        category,
+        name: req.session.user.name,
+        title: `Kategori ${category.name}`
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)

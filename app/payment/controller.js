@@ -11,7 +11,9 @@ module.exports = {
       const data = await Payment.find().populate('banks')
       res.render('admin/payment/index', {
         data,
-        alert
+        alert,
+        name: req.session.user.name,
+        title: 'Jenis Pembayaran'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -23,7 +25,9 @@ module.exports = {
     try {
       const bank = await Bank.find()
       res.render('admin/payment/create', {
-        bank
+        bank,
+        name: req.session.user.name,
+        title: 'Tambah Jenis Pembayaran'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -54,7 +58,9 @@ module.exports = {
       const data = await Payment.findOne({_id: id})
       const bank = await Bank.find()
       res.render('admin/payment/edit', {
-        data, bank
+        data, bank,
+        name: req.session.user.name,
+        title: `Jenis Pembayaran ${data.type}`
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)

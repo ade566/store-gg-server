@@ -11,7 +11,9 @@ module.exports = {
       console.log(nominal);
       res.render('admin/nominal/index', {
         nominal,
-        alert
+        alert,
+        name: req.session.user.name,
+        title: 'Nominal'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -21,7 +23,10 @@ module.exports = {
   },
   create: async (req, res) => {
     try {
-      res.render('admin/nominal/create')
+      res.render('admin/nominal/create', {
+        name: req.session.user.name,
+        title: 'Tambah Nominal'
+      })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
       req.flash("alertStatus", "danger")
@@ -50,7 +55,9 @@ module.exports = {
       const {id} = req.params
       const nominal = await Nominal.findOne({_id: id})
       res.render('admin/nominal/edit', {
-        e: nominal
+        e: nominal,
+        name: req.session.user.name,
+        title: `${nominal.coinQuantity} koin ${nominal.coinName} Rp ${nominal.price}`
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)

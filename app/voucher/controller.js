@@ -16,7 +16,9 @@ module.exports = {
       console.log(data);
       res.render('admin/voucher/index', {
         data,
-        alert
+        alert,
+        name: req.session.user.name,
+        title: 'Voucher'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -31,6 +33,8 @@ module.exports = {
       res.render('admin/voucher/create', {
         category,
         nominal,
+        name: req.session.user.name,
+        title: 'Tambah Voucher'
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)
@@ -93,7 +97,9 @@ module.exports = {
       const category = await Category.find()
       const nominal = await Nominal.find()
       res.render('admin/voucher/edit', {
-        data, category, nominal
+        data, category, nominal,
+        name: req.session.user.name,
+        title: `Voucher ${data.name}`
       })
     } catch (error) {
       req.flash("alertMessage", `${error.message}`)

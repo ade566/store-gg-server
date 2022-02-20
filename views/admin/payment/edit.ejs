@@ -1,0 +1,84 @@
+<%- include ../../partials/header.ejs %>
+<%- include ../../partials/navbar.ejs %>
+<%- include ../../partials/sidebar.ejs %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Tipe Pembayaran</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/payment">Tipe Pembayaran</a></li>
+            <li class="breadcrumb-item active">Ubah</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Ubah Tipe Pembayaran</h3>
+            </div>
+            <form method="post" action="/payment/_edit/<%= data._id %>?_method=PUT">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Tipe Pembayaran</label>
+                  <input type="text" class="form-control" name="type" id="type" placeholder="Tipe Pembayaran" value="<%= data.type %>">
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                    <label>Bank</label>
+                    <select class="form-control select2" multiple="multiple" data-placeholder="Pilih Bank" style="width: 100%;" name="banks" required>
+                      <% bank.forEach(e => { %>
+                        <option value="<%= e._id %>"
+                          <% data.banks.forEach(bank => { %>
+                            <% if (bank._id.toString() === e._id.toString()) { %>
+                              selected
+                            <% } %>
+                          <% }) %>><%= e.name %> - <%= e.nameBank %>  - No.Rek <%= e.noRekening %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<%- include ../../partials/footer.ejs %>
+<%- include ../../partials/js.ejs %>
+<script>
+  function readURL(input){
+    if(input.files && input.files[0]){
+      const reader = new FileReader();
+
+      reader.onload = function(e){
+        $(`#preview`).attr('src', e.target.result)
+        $(`#preview`).attr('width', '200px')
+        $(`#preview`).attr('height', '100%')
+      }
+
+      reader.readAsDataURL(input.files[0])
+    }
+  }
+
+  $(`#thumbnail`).change(function(){
+    readURL(this)
+  })
+</script>

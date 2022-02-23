@@ -14,6 +14,7 @@ var voucherRouter = require('./app/voucher/router');
 var BankRouter = require('./app/bank/router');
 var paymentRouter = require('./app/payment/router');
 var userRouter = require('./app/users/router');
+var transactionRouter = require('./app/transaction/router');
 var app = express();
 
 // view engine setup
@@ -42,6 +43,7 @@ app.use('/nominal', nominalRouter);
 app.use('/voucher', voucherRouter);
 app.use('/bank', BankRouter);
 app.use('/payment', paymentRouter);
+app.use('/transaction', transactionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

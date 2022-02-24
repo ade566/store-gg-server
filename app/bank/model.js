@@ -4,7 +4,7 @@ let categorySchema = mongoose.Schema({
     type: String,
     require : [true, 'Nama pemilik harus diisi']
   },
-  nameBank: {
+  bankName: {
     type: String,
     require : [true, 'Nama bank harus diisi']
   },

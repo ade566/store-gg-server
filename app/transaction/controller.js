@@ -7,7 +7,7 @@ module.exports = {
       const alertStatus = req.flash("alertStatus")
 
       const alert = {message: alertMessage, status: alertStatus}
-      const data = await Transaction.find()
+      const data = await Transaction.find().populate('player')
       console.log(data);
       res.render('admin/transaction/index', {
         data,

@@ -42,18 +42,20 @@
           <%= e.player?.name ?? '-' %>
         </td>
         <td>
-          <form style="display: inline-block;" action="/transaction/status/<%= e._id %>?_method=PUT" method="post">
+          <% if (e.status === 'pending') { %>
+          <form style="display: inline-block;" action="/transaction/status/<%= e._id %>?status=failed&?_method=PUT" method="post">
             <button class="btn btn-sm btn-danger">
               <i class="fas fa-times-circle"></i>
               Tolak
             </button>
           </form>
-          <form style="display: inline-block;" action="/transaction/status/<%= e._id %>?_method=PUT" method="post">
+          <form style="display: inline-block;" action="/transaction/status/<%= e._id %>?status=success&?_method=PUT" method="post">
             <button class="btn btn-sm btn-info">
               <i class="fas fa-check"></i>
               Terima
             </button>
           </form>
+          <% } %>
         </td>
       </tr>
     <% }) %>

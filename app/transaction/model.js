@@ -43,7 +43,7 @@ let transactionSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Player'
   },
-  historyPayment: {
+  historyUser: {
     name: { type: String, require : [true, 'Nama player harus diisi'] },
     phoneNumber: {
       type: Number,
